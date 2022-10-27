@@ -1,13 +1,13 @@
 import React from 'react';
 import Home from './pages/Home';
-// import rootProvider from './context/rootProvider';
+import RootProvider from './context/RootProvider';
 import './App.css';
 
 function App() {
   return (
-    <rootProvider>
+    <RootProvider>
       <Home />
-    </rootProvider>
+    </RootProvider>
   );
 }
 

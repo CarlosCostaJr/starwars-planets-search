@@ -1,17 +1,17 @@
 import React from 'react';
-import Header from '../components/Header';
-import Filters from '../components/Filters';
-import Table from '../components/table';
+// import Header from '../components/Header';
+// import Filters from '../components/Filters';
+import Table from '../components/Table';
 
 function Home() {
   return (
     <>
       <header>
-        <Header />
+        {/* <Header /> */}
       </header>
       <main>
         <section>
-          <Filters />
+          {/* <Filters /> */}
           <Table />
         </section>
       </main>
