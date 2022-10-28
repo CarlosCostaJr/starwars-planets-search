@@ -1,5 +1,4 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import RootContext from './RootContext';
 import getPlanets from '../services/apiRequest';
@@ -15,12 +14,13 @@ function RootProvider({ children }) {
     fetchPlanets();
   }, []);
 
-  const globalContext = {
+  const globalState = useMemo(() => ({
     planets,
-  };
+    setPlanets,
+  }), [planets]);
 
   return (
-    <RootContext.Provider value={ globalContext }>
+    <RootContext.Provider value={ globalState }>
       {children}
     </RootContext.Provider>
   );
