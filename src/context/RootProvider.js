@@ -5,6 +5,10 @@ import getPlanets from '../services/apiRequest';
 
 function RootProvider({ children }) {
   const [planets, setPlanets] = useState([]);
+  const [filteredPlanets, setFilteredPlanets] = useState([]);
+  const [filterByName, setFilterByName] = useState({ name: '' });
+
+  console.log(filterByName);
 
   useEffect(() => {
     const fetchPlanets = async () => {
@@ -14,10 +18,24 @@ function RootProvider({ children }) {
     fetchPlanets();
   }, []);
 
+  useEffect(() => {
+    const filterPlanetsName = () => {
+      const searchresult = planets
+        .filter((planet) => planet.name.toUpperCase()
+          .includes(filterByName.name.toUpperCase()));
+      setFilteredPlanets([...searchresult]);
+    };
+
+    filterPlanetsName();
+  }, [filterByName, planets]);
+
   const globalState = useMemo(() => ({
     planets,
     setPlanets,
-  }), [planets]);
+    filterByName,
+    setFilterByName,
+    filteredPlanets,
+  }), [planets, filterByName, filteredPlanets]);
 
   return (
     <RootContext.Provider value={ globalState }>

@@ -1,6 +1,6 @@
 import React from 'react';
 // import Header from '../components/Header';
-// import Filters from '../components/Filters';
+import Filters from '../components/Filters';
 import Table from '../components/Table';
 
 function Home() {
@@ -11,7 +11,7 @@ function Home() {
       </header>
       <main>
         <section>
-          {/* <Filters /> */}
+          <Filters />
           <Table />
         </section>
       </main>
