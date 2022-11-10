@@ -5,11 +5,12 @@ import getPlanets from '../services/apiRequest';
 
 function RootProvider({ children }) {
   const [planets, setPlanets] = useState([]);
+  const [valueFilter, setValueFilter] = useState('0');
   const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
-  const [columnFilter, setColumnFilter] = useState('');
-  const [comparisonFilter, setComparisonFilter] = useState('');
-  const [valueFilter, setValueFilter] = useState('');
+  const [columnFilter, setColumnFilter] = useState('population');
+  const [comparisonFilter, setComparisonFilter] = useState('maior que');
+  const [applyFilterBtn, setApplyFilterBtn] = useState(false);
 
   useEffect(() => {
     const fetchPlanets = async () => {
@@ -30,18 +31,43 @@ function RootProvider({ children }) {
     filterPlanetsName();
   }, [filterByName, planets]);
 
+  useEffect(() => {
+    const filterPlanetsName = () => {
+      if (applyFilterBtn) {
+        switch (comparisonFilter) {
+        case 'menor que':
+          setFilteredPlanets([
+            ...planets.filter((planet) => Number(planet[columnFilter]) < valueFilter)]);
+          break;
+        case 'igual a':
+          setFilteredPlanets([
+            ...planets.filter((planet) => Number(planet[columnFilter]) === valueFilter)]);
+          break;
+        default:
+          setFilteredPlanets([
+            ...planets.filter((planet) => Number(planet[columnFilter]) > valueFilter)]);
+          break;
+        }
+      }
+      setApplyFilterBtn(false);
+    };
+    filterPlanetsName();
+  }, [planets, valueFilter, columnFilter, applyFilterBtn, comparisonFilter]);
+
   const globalState = useMemo(() => ({
     planets,
-    setPlanets,
+    valueFilter,
     filterByName,
-    setFilterByName,
     filteredPlanets,
     columnFilter,
-    setColumnFilter,
     comparisonFilter,
+    setPlanets,
+    setFilterByName,
+    setColumnFilter,
     setComparisonFilter,
-    valueFilter,
     setValueFilter,
+    applyFilterBtn,
+    setApplyFilterBtn,
   }), [
     planets,
     filterByName,
@@ -49,6 +75,7 @@ function RootProvider({ children }) {
     columnFilter,
     comparisonFilter,
     valueFilter,
+    applyFilterBtn,
   ]);
 
   return (

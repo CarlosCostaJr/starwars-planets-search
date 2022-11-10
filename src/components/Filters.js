@@ -4,13 +4,19 @@ import '../styles/Filters.css';
 
 function Filters() {
   const {
-    // planets,
-    filterByName,
+    columnFilter,
+    comparisonFilter,
+    ValueFilter,
     setFilterByName,
     setColumnFilter,
     setComparisonFilter,
     setValueFilter,
+    setApplyFilterBtn,
   } = useContext(RootContext);
+
+  console.log(columnFilter);
+  console.log(comparisonFilter);
+  console.log(ValueFilter);
 
   const handleChangeSearch = ({ target }) => {
     setFilterByName({ [target.name]: target.value });
@@ -28,6 +34,10 @@ function Filters() {
     setValueFilter(target.value);
   };
 
+  const apllyFilter = () => {
+    setApplyFilterBtn(true);
+  };
+
   return (
     <div className="filters">
       <label htmlFor="search" className="filters-element">
@@ -37,7 +47,6 @@ function Filters() {
           type="text"
           placeholder="Digite o nome do planeta"
           name="name"
-          value={ filterByName.name }
           onChange={ handleChangeSearch }
           data-testid="name-filter"
         />
@@ -48,6 +57,7 @@ function Filters() {
         <select
           id="column_filter"
           name="column"
+          value={ columnFilter }
           data-testid="column-filter"
           onChange={ handleColumnFilter }
         >
@@ -64,6 +74,7 @@ function Filters() {
         <select
           id="comparison"
           name="comparison"
+          value={ comparisonFilter }
           onChange={ handleComparisonFilter }
           data-testid="comparison-filter"
         >
@@ -77,8 +88,10 @@ function Filters() {
         <input
           className="filters-element"
           type="number"
-          placeholder="valor"
+          min={ 0 }
+          placeholder={ 0 }
           name="value"
+          value={ ValueFilter }
           onChange={ handleValueFilter }
           data-testid="value-filter"
         />
@@ -88,7 +101,7 @@ function Filters() {
         className="filters-element"
         type="button"
         data-testid="button-filter"
-        onClick={ null }
+        onClick={ apllyFilter }
       >
         Filtrar
       </button>
