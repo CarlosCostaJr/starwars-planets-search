@@ -7,8 +7,9 @@ function RootProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
-
-  console.log(filterByName);
+  const [columnFilter, setColumnFilter] = useState('');
+  const [comparisonFilter, setComparisonFilter] = useState('');
+  const [valueFilter, setValueFilter] = useState('');
 
   useEffect(() => {
     const fetchPlanets = async () => {
@@ -35,7 +36,20 @@ function RootProvider({ children }) {
     filterByName,
     setFilterByName,
     filteredPlanets,
-  }), [planets, filterByName, filteredPlanets]);
+    columnFilter,
+    setColumnFilter,
+    comparisonFilter,
+    setComparisonFilter,
+    valueFilter,
+    setValueFilter,
+  }), [
+    planets,
+    filterByName,
+    filteredPlanets,
+    columnFilter,
+    comparisonFilter,
+    valueFilter,
+  ]);
 
   return (
     <RootContext.Provider value={ globalState }>
