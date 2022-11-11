@@ -41,7 +41,7 @@ function RootProvider({ children }) {
           break;
         case 'igual a':
           setFilteredPlanets([
-            ...planets.filter((planet) => Number(planet[columnFilter]) === valueFilter)]);
+            ...planets.filter((planet) => planet[columnFilter] === valueFilter)]);
           break;
         default:
           setFilteredPlanets([

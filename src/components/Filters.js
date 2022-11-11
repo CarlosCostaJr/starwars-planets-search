@@ -6,17 +6,13 @@ function Filters() {
   const {
     columnFilter,
     comparisonFilter,
-    ValueFilter,
+    valueFilter,
     setFilterByName,
     setColumnFilter,
     setComparisonFilter,
     setValueFilter,
     setApplyFilterBtn,
   } = useContext(RootContext);
-
-  console.log(columnFilter);
-  console.log(comparisonFilter);
-  console.log(ValueFilter);
 
   const handleChangeSearch = ({ target }) => {
     setFilterByName({ [target.name]: target.value });
@@ -91,7 +87,7 @@ function Filters() {
           min={ 0 }
           placeholder={ 0 }
           name="value"
-          value={ ValueFilter }
+          value={ valueFilter }
           onChange={ handleValueFilter }
           data-testid="value-filter"
         />
