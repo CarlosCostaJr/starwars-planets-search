@@ -11,7 +11,9 @@ function Filters() {
     setColumnFilter,
     setComparisonFilter,
     setValueFilter,
-    setApplyFilterBtn,
+    // setApplyFilterBtn,
+    filterApplyed,
+    setFilterApplyed,
   } = useContext(RootContext);
 
   const handleChangeSearch = ({ target }) => {
@@ -31,7 +33,11 @@ function Filters() {
   };
 
   const apllyFilter = () => {
-    setApplyFilterBtn(true);
+    setFilterApplyed([...filterApplyed, {
+      columnFilter,
+      comparisonFilter,
+      valueFilter,
+    }]);
   };
 
   return (

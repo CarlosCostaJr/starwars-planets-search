@@ -7,15 +7,16 @@ function RootProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [valueFilter, setValueFilter] = useState('0');
   const [filteredPlanets, setFilteredPlanets] = useState([]);
+  const [filterApplyed, setFilterApplyed] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
-  const [applyFilterBtn, setApplyFilterBtn] = useState(false);
 
   useEffect(() => {
     const fetchPlanets = async () => {
       const resultPlanets = await getPlanets();
       setPlanets([...resultPlanets]);
+      setFilteredPlanets([...resultPlanets]);
     };
     fetchPlanets();
   }, []);
@@ -33,26 +34,33 @@ function RootProvider({ children }) {
 
   useEffect(() => {
     const filterPlanetsName = () => {
-      if (applyFilterBtn) {
-        switch (comparisonFilter) {
+      filterApplyed.forEach((el) => {
+        switch (el.comparisonFilter) {
         case 'menor que':
           setFilteredPlanets([
-            ...planets.filter((planet) => Number(planet[columnFilter]) < valueFilter)]);
+            ...filteredPlanets
+              .filter((planet) => +planet[el.columnFilter] < +el.valueFilter)]);
           break;
         case 'igual a':
           setFilteredPlanets([
-            ...planets.filter((planet) => planet[columnFilter] === valueFilter)]);
+            ...filteredPlanets
+              .filter((planet) => +planet[el.columnFilter] === +el.valueFilter)]);
           break;
         default:
           setFilteredPlanets([
-            ...planets.filter((planet) => Number(planet[columnFilter]) > valueFilter)]);
+            ...filteredPlanets
+              .filter((planet) => +planet[el.columnFilter] > +el.valueFilter)]);
           break;
         }
-      }
-      setApplyFilterBtn(false);
+      });
     };
     filterPlanetsName();
-  }, [planets, valueFilter, columnFilter, applyFilterBtn, comparisonFilter]);
+  }, [
+    // filteredPlanets,
+    // valueFilter,
+    // columnFilter, applyFilterBtn, comparisonFilter,
+    filterApplyed,
+  ]);
 
   const globalState = useMemo(() => ({
     planets,
@@ -66,8 +74,8 @@ function RootProvider({ children }) {
     setColumnFilter,
     setComparisonFilter,
     setValueFilter,
-    applyFilterBtn,
-    setApplyFilterBtn,
+    filterApplyed,
+    setFilterApplyed,
   }), [
     planets,
     filterByName,
@@ -75,7 +83,7 @@ function RootProvider({ children }) {
     columnFilter,
     comparisonFilter,
     valueFilter,
-    applyFilterBtn,
+    filterApplyed,
   ]);
 
   return (
