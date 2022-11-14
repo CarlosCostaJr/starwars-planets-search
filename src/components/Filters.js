@@ -4,6 +4,7 @@ import '../styles/Filters.css';
 
 function Filters() {
   const {
+    removeAllFilters,
     columnFilter,
     comparisonFilter,
     valueFilter,
@@ -42,10 +43,6 @@ function Filters() {
       comparisonFilter,
       valueFilter,
     }]);
-  };
-
-  const RemoveAllFilters = () => {
-    setFilterApplyed([]);
   };
 
   return (
@@ -118,7 +115,7 @@ function Filters() {
       <button
         type="button"
         data-testid="button-remove-filters"
-        onClick={ RemoveAllFilters }
+        onClick={ removeAllFilters }
       >
         Remover Filtros
       </button>
