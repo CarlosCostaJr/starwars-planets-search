@@ -9,15 +9,23 @@ function RootProvider({ children }) {
   const [filterApplyed, setFilterApplyed] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
 
+  const INITIAL_FILTER_OPTIONS = [
+    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
+  ];
+
   const [availableFilterOptions, setAvailableFilterOptions] = useState(
-    [
-      'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
-    ],
+    INITIAL_FILTER_OPTIONS,
   );
 
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState('0');
+
+  const removeAllFilters = () => {
+    setFilterApplyed([]);
+    setFilteredPlanets([...planets]);
+    setAvailableFilterOptions(INITIAL_FILTER_OPTIONS);
+  };
 
   useEffect(() => {
     const fetchPlanets = async () => {
@@ -80,6 +88,7 @@ function RootProvider({ children }) {
     setFilterApplyed,
     availableFilterOptions,
     setAvailableFilterOptions,
+    removeAllFilters,
   }), [
     planets,
     filterByName,
