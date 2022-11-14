@@ -34,13 +34,18 @@ function Filters() {
   };
 
   const apllyFilter = () => {
+    const newOptions = availableFilterOptions.filter((option) => option !== columnFilter);
+    setAvailableFilterOptions(newOptions);
+
     setFilterApplyed([...filterApplyed, {
       columnFilter,
       comparisonFilter,
       valueFilter,
     }]);
-    const newOptions = availableFilterOptions.filter((option) => option !== columnFilter);
-    setAvailableFilterOptions(newOptions);
+  };
+
+  const RemoveAllFilters = () => {
+    setFilterApplyed([]);
   };
 
   return (
@@ -108,6 +113,14 @@ function Filters() {
         onClick={ apllyFilter }
       >
         Filtrar
+      </button>
+
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ RemoveAllFilters }
+      >
+        Remover Filtros
       </button>
 
     </div>

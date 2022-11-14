@@ -14,6 +14,7 @@ function ApllyedFilters() {
       filter !== filterApplyed[index]));
     setFilterApplyed(newFilter);
   };
+
   return (
     <div>
       <ul className="applyed-Filtes">
