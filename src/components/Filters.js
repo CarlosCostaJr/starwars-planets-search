@@ -13,6 +13,8 @@ function Filters() {
     setValueFilter,
     filterApplyed,
     setFilterApplyed,
+    availableFilterOptions,
+    setAvailableFilterOptions,
   } = useContext(RootContext);
 
   const handleChangeSearch = ({ target }) => {
@@ -37,6 +39,8 @@ function Filters() {
       comparisonFilter,
       valueFilter,
     }]);
+    const newOptions = availableFilterOptions.filter((option) => option !== columnFilter);
+    setAvailableFilterOptions(newOptions);
   };
 
   return (
@@ -62,11 +66,10 @@ function Filters() {
           data-testid="column-filter"
           onChange={ handleColumnFilter }
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          {availableFilterOptions
+            .map(
+              (option, index) => <option key={ index } value={ option }>{option}</option>,
+            )}
         </select>
       </label>
 

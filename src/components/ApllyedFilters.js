@@ -4,26 +4,40 @@ import '../styles/apllyedFiltes.css';
 
 function ApllyedFilters() {
   const {
-    columnFilter,
-    comparisonFilter,
-    valueFilter,
+    filterApplyed,
+    setFilterApplyed,
   } = useContext(RootContext);
 
+  const removeFilter = (index) => {
+    console.log(index);
+    const newFilter = filterApplyed.filter((filter) => (
+      filter !== filterApplyed[index]));
+    setFilterApplyed(newFilter);
+  };
   return (
     <div>
       <ul className="applyed-Filtes">
-        <li
-          data-testid="filter"
-          className="filters"
-        >
-          <span>{`${columnFilter} ${comparisonFilter} ${valueFilter}`}</span>
-          <button
-            className="applyed-button"
-            type="button"
+        {filterApplyed.map(({
+          columnFilter,
+          comparisonFilter,
+          valueFilter,
+        }, index) => (
+          <li
+            key={ index }
+            data-testid="filter"
           >
-            X
-          </button>
-        </li>
+            <div>
+              <span>{`${columnFilter} ${comparisonFilter} ${valueFilter}`}</span>
+            </div>
+            <button
+              type="button"
+              id={ null }
+              onClick={ () => removeFilter(index) }
+            >
+              X
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   );

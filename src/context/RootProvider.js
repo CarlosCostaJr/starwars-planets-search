@@ -5,12 +5,19 @@ import getPlanets from '../services/apiRequest';
 
 function RootProvider({ children }) {
   const [planets, setPlanets] = useState([]);
-  const [valueFilter, setValueFilter] = useState('0');
   const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [filterApplyed, setFilterApplyed] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
+
+  const [availableFilterOptions, setAvailableFilterOptions] = useState(
+    [
+      'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
+    ],
+  );
+
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
+  const [valueFilter, setValueFilter] = useState('0');
 
   useEffect(() => {
     const fetchPlanets = async () => {
@@ -71,6 +78,8 @@ function RootProvider({ children }) {
     setValueFilter,
     filterApplyed,
     setFilterApplyed,
+    availableFilterOptions,
+    setAvailableFilterOptions,
   }), [
     planets,
     filterByName,
@@ -79,6 +88,7 @@ function RootProvider({ children }) {
     comparisonFilter,
     valueFilter,
     filterApplyed,
+    availableFilterOptions,
   ]);
 
   return (
