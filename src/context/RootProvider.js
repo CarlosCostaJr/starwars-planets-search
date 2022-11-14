@@ -55,12 +55,7 @@ function RootProvider({ children }) {
       });
     };
     filterPlanetsName();
-  }, [
-    // filteredPlanets,
-    // valueFilter,
-    // columnFilter, applyFilterBtn, comparisonFilter,
-    filterApplyed,
-  ]);
+  }, [filterApplyed]);
 
   const globalState = useMemo(() => ({
     planets,

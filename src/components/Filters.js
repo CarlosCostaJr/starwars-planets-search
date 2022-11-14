@@ -11,7 +11,6 @@ function Filters() {
     setColumnFilter,
     setComparisonFilter,
     setValueFilter,
-    // setApplyFilterBtn,
     filterApplyed,
     setFilterApplyed,
   } = useContext(RootContext);
