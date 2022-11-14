@@ -64,9 +64,9 @@ function Filters() {
         <select
           id="column_filter"
           name="column"
-          value={ columnFilter }
           data-testid="column-filter"
           onChange={ handleColumnFilter }
+          // value={ availableFilterOptions[0] }
         >
           {availableFilterOptions
             .map(

@@ -6,13 +6,15 @@ function ApllyedFilters() {
   const {
     filterApplyed,
     setFilterApplyed,
+    removeAllFilters,
   } = useContext(RootContext);
 
   const removeFilter = (index) => {
-    console.log(index);
+    console.log(filterApplyed.length);
     const newFilter = filterApplyed.filter((filter) => (
       filter !== filterApplyed[index]));
     setFilterApplyed(newFilter);
+    if (filterApplyed.length === 1) removeAllFilters();
   };
 
   return (
