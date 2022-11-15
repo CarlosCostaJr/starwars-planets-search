@@ -6,7 +6,6 @@ function ApllyedFilters() {
   const {
     filterApplyed,
     setFilterApplyed,
-    // removeAllFilters,
     filteredHistory,
     setFilteredPlanets,
   } = useContext(RootContext);
