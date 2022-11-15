@@ -6,15 +6,18 @@ function ApllyedFilters() {
   const {
     filterApplyed,
     setFilterApplyed,
-    removeAllFilters,
+    // removeAllFilters,
+    filteredHistory,
+    setFilteredPlanets,
   } = useContext(RootContext);
 
   const removeFilter = (index) => {
-    console.log(filterApplyed.length);
     const newFilter = filterApplyed.filter((filter) => (
       filter !== filterApplyed[index]));
     setFilterApplyed(newFilter);
-    if (filterApplyed.length === 1) removeAllFilters();
+    const exclude = 3;
+    const newFilterHander = filteredHistory.slice(exclude);
+    setFilteredPlanets(newFilterHander[index]);
   };
 
   return (
@@ -29,9 +32,7 @@ function ApllyedFilters() {
             key={ index }
             data-testid="filter"
           >
-            <div>
-              <span>{`${columnFilter} ${comparisonFilter} ${valueFilter}`}</span>
-            </div>
+            <span>{`${columnFilter} ${comparisonFilter} ${valueFilter}`}</span>
             <button
               type="button"
               id={ null }

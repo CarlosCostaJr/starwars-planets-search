@@ -6,6 +6,7 @@ import getPlanets from '../services/apiRequest';
 function RootProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filteredPlanets, setFilteredPlanets] = useState([]);
+  const [filteredHistory, setFilteredHistory] = useState([]);
   const [filterApplyed, setFilterApplyed] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
 
@@ -43,7 +44,6 @@ function RootProvider({ children }) {
           .includes(filterByName.name.toUpperCase()));
       setFilteredPlanets([...searchresult]);
     };
-
     filterPlanetsName();
   }, [filterByName, planets]);
 
@@ -72,6 +72,10 @@ function RootProvider({ children }) {
     filterPlanetsName();
   }, [filterApplyed]);
 
+  useEffect(() => {
+    setFilteredHistory((filter) => [...filter, filteredPlanets]);
+  }, [filteredPlanets]);
+
   const globalState = useMemo(() => ({
     planets,
     valueFilter,
@@ -79,6 +83,7 @@ function RootProvider({ children }) {
     filteredPlanets,
     columnFilter,
     comparisonFilter,
+    setFilteredPlanets,
     setPlanets,
     setFilterByName,
     setColumnFilter,
@@ -89,7 +94,10 @@ function RootProvider({ children }) {
     availableFilterOptions,
     setAvailableFilterOptions,
     removeAllFilters,
+    filteredHistory,
+    setFilteredHistory,
   }), [
+    filteredHistory,
     planets,
     filterByName,
     filteredPlanets,
