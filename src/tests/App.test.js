@@ -18,19 +18,19 @@ describe('cobertura da Api', () => {
     expect(await screen.findByText('Tatooine')).toBeInTheDocument();
   });
 
-  it('verifica se tabela é renderizada', async () => {
-    jest.spyOn(global, 'fetch')
-      .mockImplementation(() => Promise.resolve({
-        status: 200,
-        ok: true,
-        json: () => Promise.resolve({
-          results: [...data],
-        }),
-      }));
+  // it('verifica se tabela é renderizada', async () => {
+  //   jest.spyOn(global, 'fetch')
+  //     .mockImplementation(() => Promise.resolve({
+  //       status: 200,
+  //       ok: true,
+  //       json: () => Promise.resolve({
+  //         results: [...data],
+  //       }),
+  //     }));
 
-    render(<App />);
-    expect(await screen.findByRole('table')).toBeInTheDocument();
-  });
+  //   render(<App />);
+  //   expect(await screen.findByRole('table')).toBeInTheDocument();
+  // });
 
   it('Verifica se elementos com id são rederizados', async () => {
     jest.spyOn(global, 'fetch')
