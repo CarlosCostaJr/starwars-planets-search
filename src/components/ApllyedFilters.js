@@ -8,6 +8,7 @@ function ApllyedFilters() {
     setFilterApplyed,
     filteredHistory,
     setFilteredPlanets,
+    // removeAllFilters,
   } = useContext(RootContext);
 
   const removeFilter = (index) => {
@@ -17,6 +18,7 @@ function ApllyedFilters() {
     const exclude = 3;
     const newFilterHander = filteredHistory.slice(exclude);
     setFilteredPlanets(newFilterHander[index]);
+    // if (filterApplyed.length === 1) removeAllFilters();
   };
 
   return (
