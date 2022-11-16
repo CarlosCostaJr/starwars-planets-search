@@ -36,7 +36,7 @@ function ApllyedFilters() {
             <span>{`${columnFilter} ${comparisonFilter} ${valueFilter}`}</span>
             <button
               type="button"
-              id={ null }
+              id="delete-filter-btn"
               onClick={ () => removeFilter(index) }
             >
               X
