@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import data from './data';
+import ApllyedFilters from '../components/ApllyedFilters';
 
 describe('cobertura da Api', () => {
   it('mocking API', async () => {
@@ -80,10 +81,20 @@ describe('cobertura da Api', () => {
 
     render(<App />);
 
+    const nameFilter = await screen.findByTestId('name-filter')
     const columnFilter = await screen.findByTestId('column-filter')
     const comparisonFilter = await screen.findByTestId('comparison-filter')
     const valueFilter = await screen.findByTestId('value-filter')
     const filterBtn = await screen.findByTestId('button-filter')
+
+    userEvent.type(nameFilter, 'Kamino')
+    expect(nameFilter).toHaveValue('Kamino');
+
+    userEvent.type(valueFilter, '1');
+    expect(valueFilter).toHaveValue(1);
+
+    userEvent.selectOptions(columnFilter, 'population');
+    expect(columnFilter).toHaveValue('population');
 
     userEvent.click(filterBtn);
     expect(await screen.findByRole('table')).toBeInTheDocument();
@@ -97,17 +108,22 @@ describe('cobertura da Api', () => {
     expect(await screen.findByRole('table')).toBeInTheDocument();
   });
 
-  // it('Verifica comportamento do botão "Filtrar"', async () => {
-  //   jest.spyOn(global, 'fetch')
-  //     .mockImplementation(() => Promise.resolve({
-  //       status: 200,
-  //       ok: true,
-  //       json: () => Promise.resolve({
-  //         results: [...data],
-  //       }),
-  //     }));
+  it('Verifica comportamento do botão "X"', async () => {
+    jest.spyOn(global, 'fetch')
+      .mockImplementation(() => Promise.resolve({
+        status: 200,
+        ok: true,
+        json: () => Promise.resolve({
+          results: [...data],
+        }),
+      }));
 
-  //   render(<App />);
-  //     const deleteFilterBtn = await screen.findAllByTestId("delete-filter-btn")
-  // });
+    render(<App />);
+    const filterBtn = await screen.findByTestId('button-filter');
+    userEvent.click(filterBtn);
+    expect(await screen.findByText("X")).toBeInTheDocument();
+
+    const filterApplyed = await screen.findAllByTestId('filter');
+    expect(filterApplyed.length).toEqual(1);
+  });
 });

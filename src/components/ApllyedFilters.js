@@ -11,13 +11,14 @@ function ApllyedFilters() {
     // removeAllFilters,
   } = useContext(RootContext);
 
-  const removeFilter = (index) => {
+  const removeFilter = ({ target }) => {
+    const { name } = target;
     const newFilter = filterApplyed.filter((filter) => (
-      filter !== filterApplyed[index]));
+      filter !== filterApplyed[name]));
     setFilterApplyed(newFilter);
     const exclude = 3;
     const newFilterHander = filteredHistory.slice(exclude);
-    setFilteredPlanets(newFilterHander[index]);
+    setFilteredPlanets(newFilterHander[name]);
     // if (filterApplyed.length === 1) removeAllFilters();
   };
 
@@ -37,7 +38,8 @@ function ApllyedFilters() {
             <button
               type="button"
               id="delete-filter-btn"
-              onClick={ () => removeFilter(index) }
+              name={ index }
+              onClick={ removeFilter }
             >
               X
             </button>
